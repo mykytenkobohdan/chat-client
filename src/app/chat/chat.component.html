@@ -1,1 +1,6 @@
-<mat-card></mat-card>
+<ng-container *ngIf="messages && messages.length > 0">
+    <mat-card *ngFor="let message of messages">
+        <mat-card-subtitle>{{message.nickName}}</mat-card-subtitle>
+        <mat-card-content>{{message.message}}</mat-card-content>
+    </mat-card>
+</ng-container>

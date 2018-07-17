@@ -1,5 +1,6 @@
 import {Component, OnInit, AfterContentInit} from '@angular/core';
 import {ChatService} from './chat.service';
+import {Message} from './chat.model';
 
 @Component({
     selector: 'app-chat',
@@ -7,6 +8,8 @@ import {ChatService} from './chat.service';
     styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+    // Array<Message> === Message[]
+    public messages: Array<Message> = [];
     // AfterContentInit - module for init after load content
     constructor(private chatService: ChatService) {
     }
@@ -17,8 +20,9 @@ export class ChatComponent implements OnInit {
 
     getChats() {
         this.chatService.getMessages()
-            .subscribe(data => {
-                console.log(data);
+            .subscribe((data: Message[]) => {
+                this.messages = data;
+                console.log(this.messages);
             }, err => {
                 console.log(err);
             });
