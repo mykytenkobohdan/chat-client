@@ -1,0 +1,14 @@
+<div class="auth-wrapper">
+    <mat-card class="auth-form">
+        <mat-form-field class="auth-field">
+            <input required (blur)="nameError = nameControl.invalid" matInput placeholder="Name"
+                   [formControl]="nameControl">
+        </mat-form-field>
+        <mat-error *ngIf="nameError">
+            Name is <strong>required</strong>
+        </mat-error>
+        <div class="auth-btn-wrapper">
+            <button mat-button color="primary" [disabled]="nameControl.invalid" (click)="login()">Submit</button>
+        </div>
+    </mat-card>
+</div>
