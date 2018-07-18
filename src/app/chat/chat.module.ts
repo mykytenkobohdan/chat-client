@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
-import {MatCardModule} from '@angular/material';
+import {MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {ChatRoutingModule} from './chat-routing.module';
 import {ChatComponent} from './chat.component';
 import {ChatService} from "./chat.service";
@@ -11,7 +11,9 @@ import {ChatService} from "./chat.service";
         CommonModule,
         HttpClientModule,
         ChatRoutingModule,
-        MatCardModule
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule
     ],
     providers: [ChatService],
     declarations: [ChatComponent]
