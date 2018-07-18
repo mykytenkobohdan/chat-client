@@ -1,6 +1,9 @@
 <ng-container *ngIf="messages && messages.length > 0">
     <mat-card *ngFor="let message of messages">
-        <mat-card-subtitle>{{message.nickName}}</mat-card-subtitle>
+        <mat-card-subtitle class="d-flex justify-content-between">
+            <strong class="h6 font-weight-bold">{{message.nickName}}</strong>
+            <span>Created at: {{message.created | date: 'short'}}</span>
+        </mat-card-subtitle>
         <mat-card-content>{{message.message}}</mat-card-content>
     </mat-card>
 </ng-container>
@@ -8,8 +11,8 @@
 <mat-card class="p-3">
     <form [formGroup]="messageForm" (submit)="send()">
         <mat-form-field class="new-message">
-        <input required matInput placeholder="Enter your message..."
-                  formControlName="messageControl">
+            <input required matInput placeholder="Enter your message..."
+                   formControlName="messageControl">
             <!-- if only input, without form, use: [formControl]="messageControl"-->
         </mat-form-field>
         <div class="text-center">
