@@ -1,5 +1,5 @@
 import {Component, OnInit, AfterContentInit, OnDestroy} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {ChatService} from './chat.service';
 import {Message} from './chat.model';
 
@@ -11,9 +11,12 @@ import {Message} from './chat.model';
 export class ChatComponent implements OnInit, OnDestroy {
     // Array<Message> === Message[]
     // AfterContentInit - module for init after load content
-    public messageControl: FormControl = new FormControl('');
+    public messageForm: FormGroup = new FormGroup({
+        messageControl: new FormControl('')
+    });
+    // public messageControl: FormControl = new FormControl('');
     public messages: Array<Message> = [];
-    private timer: any
+    private timer: any;
 
     constructor(private chatService: ChatService) {
     }
@@ -44,15 +47,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     public send() {
         const message: Message = {
             nickName: localStorage.getItem('nickname'),
-            message: this.messageControl.value
+            message: this.messageForm.controls.messageControl.value
         };
 
-        console.log(message);
+        console.log(this.messageForm);
 
         this.chatService.sendMessage(message)
             .subscribe(() => {
                 // clear value or use .reset();
-                this.messageControl.patchValue('');
+                // this.messageForm.controls.messageControl.patchValue('');
+                this.messageForm.reset();
                 // update chat
                 this.getChats();
             }, (err) => {

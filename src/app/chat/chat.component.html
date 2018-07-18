@@ -6,14 +6,17 @@
 </ng-container>
 <br>
 <mat-card class="p-3">
-    <mat-form-field class="new-message">
-        <textarea required matInput placeholder="Enter your message..."
-                  [formControl]="messageControl"></textarea>
-    </mat-form-field>
-    <div class="text-center">
-        <button (click)="send()" [disabled]="messageControl.invalid" mat-button color="primary">
-            <span class="d-inline-block mr-1">Send</span>
-            <i class="material-icons">send</i>
-        </button>
-    </div>
+    <form [formGroup]="messageForm" (submit)="send()">
+        <mat-form-field class="new-message">
+        <input required matInput placeholder="Enter your message..."
+                  formControlName="messageControl">
+            <!-- if only input, without form, use: [formControl]="messageControl"-->
+        </mat-form-field>
+        <div class="text-center">
+            <button [disabled]="messageForm.invalid" mat-button color="primary">
+                <span class="d-inline-block mr-1">Send</span>
+                <i class="material-icons">send</i>
+            </button>
+        </div>
+    </form>
 </mat-card>
