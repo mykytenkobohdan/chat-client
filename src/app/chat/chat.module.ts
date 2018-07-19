@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule} from '@angular/material';
 import {ChatRoutingModule} from './chat-routing.module';
 import {ChatComponent} from './chat.component';
 import {ChatService} from "./chat.service";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
     imports: [
@@ -13,11 +13,7 @@ import {ChatService} from "./chat.service";
         HttpClientModule,
         ChatRoutingModule,
         ReactiveFormsModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule
+        SharedModule
     ],
     providers: [ChatService],
     declarations: [ChatComponent]

@@ -7,3 +7,20 @@
 body {
   background-color: #eee;
 }
+
+.auth-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+
+  .auth-form {
+    margin-top: 10px;
+
+    .auth-field {
+      width: 100%;
+    }
+  }
+}
+
+.mat-error {
+  font-size: 12px;
+}
