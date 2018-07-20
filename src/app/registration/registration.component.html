@@ -1,16 +1,11 @@
 <div class="auth-wrapper">
     <form [formGroup]="registrationForm" (submit)="send()">
+
         <mat-card class="auth-form">
             <mat-form-field class="auth-field">
                 <input required formControlName="userName" matInput placeholder="User name">
-                <mat-error
-                        *ngIf="(formTouched && registrationForm.controls.userName.invalid) || registrationForm.controls.userName.touched">
-                <span *ngIf="registrationForm.controls.userName.errors && registrationForm.controls.userName.errors.required">
-                    Name is <strong>required</strong>
-                </span>
-                    <span *ngIf="registrationForm.controls.userName.errors && registrationForm.controls.userName.errors.minlength">
-                    Required length is <strong>{{registrationForm.controls.userName.errors.minlength.requiredLength}}</strong>
-                </span>
+                <mat-error>
+                    <app-validator-message [field]="registrationForm.get('userName')"></app-validator-message>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="auth-field">
@@ -27,15 +22,15 @@
                 <mat-form-field class="auth-field">
                     <input required formControlName="pwd" type="password" matInput
                            placeholder="Password">
-                   <!-- <mat-error
-                            *ngIf="(formTouched && registrationForm.controls.password.password.invalid) || registrationForm.controls.password.password.touched">
-                        <div *ngIf="registrationForm.controls.password.password.errors && registrationForm.controls.password.password.errors.required">
-                            Name is <strong>required</strong>
-                        </div>
-                        <div *ngIf="registrationForm.controls.password.password.errors && registrationForm.controls.password.password.errors.minlength">
-                            Required length is <strong>{{registrationForm.controls.password.password.errors.minlength.requiredLength}}</strong>
-                        </div>
-                    </mat-error>-->
+                    <!-- <mat-error
+                             *ngIf="(formTouched && registrationForm.controls.password.password.invalid) || registrationForm.controls.password.password.touched">
+                         <div *ngIf="registrationForm.controls.password.password.errors && registrationForm.controls.password.password.errors.required">
+                             Name is <strong>required</strong>
+                         </div>
+                         <div *ngIf="registrationForm.controls.password.password.errors && registrationForm.controls.password.password.errors.minlength">
+                             Required length is <strong>{{registrationForm.controls.password.password.errors.minlength.requiredLength}}</strong>
+                         </div>
+                     </mat-error>-->
                 </mat-form-field>
                 <mat-form-field class="auth-field">
                     <input required formControlName="confirm" type="password" matInput

@@ -12,7 +12,9 @@ import {SharedModule} from "../shared/shared.module";
         ReactiveFormsModule,
         SharedModule
     ],
-    declarations: [RegistrationComponent]
+    declarations: [
+        RegistrationComponent
+    ]
 })
 export class RegistrationModule {
 }
