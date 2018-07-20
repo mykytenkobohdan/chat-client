@@ -26,7 +26,8 @@ export class ValidatorMessageComponent {
             required: 'Field is required',
             requiredTrue: 'Value should be positive',
             email: 'Field should contain e-mail',
-            pattern: 'Field does not match to pattern'
+            pattern: 'Field does not match to pattern',
+            passwordEqual: 'Passwords isn\'t equal'
         };
 
         if (field.errors.hasOwnProperty('custom')) {
