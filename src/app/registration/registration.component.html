@@ -23,32 +23,34 @@
                     <span *ngIf="registrationForm.controls.email.errors && registrationForm.controls.email.errors.email">Invalid email address</span>
                 </mat-error>
             </mat-form-field>
-            <mat-form-field class="auth-field">
-                <input required formControlName="password" type="password" matInput
-                       placeholder="Password">
-                <mat-error
-                        *ngIf="(formTouched && registrationForm.controls.password.invalid) || registrationForm.controls.password.touched">
-                    <div *ngIf="registrationForm.controls.password.errors && registrationForm.controls.password.errors.required">
-                        Name is <strong>required</strong>
-                    </div>
-                    <div *ngIf="registrationForm.controls.password.errors && registrationForm.controls.password.errors.minlength">
-                        Required length is <strong>{{registrationForm.controls.password.errors.minlength.requiredLength}}</strong>
-                    </div>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="auth-field">
-                <input required formControlName="confirmPassword" type="password" matInput
-                       placeholder="Confirm password">
-                <mat-error
-                        *ngIf="(formTouched && registrationForm.controls.confirmPassword.invalid) || registrationForm.controls.confirmPassword.touched">
-                    <div *ngIf="registrationForm.controls.confirmPassword.errors && registrationForm.controls.confirmPassword.errors.required">
-                        Name is <strong>required</strong>
-                    </div>
-                    <div *ngIf="registrationForm.controls.confirmPassword.errors && registrationForm.controls.confirmPassword.errors.minlength">
-                        Required length is <strong>{{registrationForm.controls.confirmPassword.errors.minlength.requiredLength}}</strong>
-                    </div>
-                </mat-error>
-            </mat-form-field>
+            <fieldset formGroupName="password">
+                <mat-form-field class="auth-field">
+                    <input required formControlName="pwd" type="password" matInput
+                           placeholder="Password">
+                   <!-- <mat-error
+                            *ngIf="(formTouched && registrationForm.controls.password.password.invalid) || registrationForm.controls.password.password.touched">
+                        <div *ngIf="registrationForm.controls.password.password.errors && registrationForm.controls.password.password.errors.required">
+                            Name is <strong>required</strong>
+                        </div>
+                        <div *ngIf="registrationForm.controls.password.password.errors && registrationForm.controls.password.password.errors.minlength">
+                            Required length is <strong>{{registrationForm.controls.password.password.errors.minlength.requiredLength}}</strong>
+                        </div>
+                    </mat-error>-->
+                </mat-form-field>
+                <mat-form-field class="auth-field">
+                    <input required formControlName="confirm" type="password" matInput
+                           placeholder="Confirm password">
+                    <!--<mat-error
+                            *ngIf="(formTouched && registrationForm.controls.confirmPassword.invalid) || registrationForm.controls.confirmPassword.touched">
+                        <div *ngIf="registrationForm.controls.confirmPassword.errors && registrationForm.controls.confirmPassword.errors.required">
+                            Name is <strong>required</strong>
+                        </div>
+                        <div *ngIf="registrationForm.controls.confirmPassword.errors && registrationForm.controls.confirmPassword.errors.minlength">
+                            Required length is <strong>{{registrationForm.controls.confirmPassword.errors.minlength.requiredLength}}</strong>
+                        </div>
+                    </mat-error>-->
+                </mat-form-field>
+            </fieldset>
             <div class="text-center">
                 <button mat-button color="primary">Registration</button>
             </div>
