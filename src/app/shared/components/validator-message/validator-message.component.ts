@@ -15,8 +15,6 @@ export class ValidatorMessageComponent {
     public validatorMessages() {
         const field = this.field;
 
-        console.log('Current field: ', field);
-
         if (!field || !field.errors) {
             return false;
         }
