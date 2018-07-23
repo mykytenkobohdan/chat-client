@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,21 +8,23 @@ import {Router} from '@angular/router';
     styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-    public nameError: boolean;
-    public nameControl: FormControl = new FormControl('', [Validators.required]);
+    public authForm: FormGroup;
 
     constructor(private router: Router) {
     }
 
     ngOnInit() {
+        this.authForm = new FormGroup({
+            username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+            password: new FormControl('', [Validators.required, Validators.minLength(3)])
+        });
     }
 
     public login(): void {
-        console.log(this.nameControl);
-        this.nameError = this.nameControl.invalid;
-        localStorage.setItem('nickname', this.nameControl.value);
+        console.log(this.authForm.value);
+        // localStorage.setItem('nickname', this.nameControl.value);
 
-        this.router.navigate(['/chat'])
-            .then((d) => console.log(d));
+        /* this.router.navigate(['/chat'])
+         .then((d) => console.log(d));*/
     }
 }
