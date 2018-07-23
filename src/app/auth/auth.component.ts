@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from "./auth.service";
 
 @Component({
     selector: 'app-auth',
@@ -9,8 +10,9 @@ import {Router} from '@angular/router';
 })
 export class AuthComponent implements OnInit {
     public authForm: FormGroup;
+    public loginError: boolean = false;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -21,9 +23,19 @@ export class AuthComponent implements OnInit {
     }
 
     public login(): void {
-        console.log(this.authForm.value);
-        localStorage.setItem('nickname', this.authForm.value.username);
-
-        /* this.router.navigate(['/chat']).then((d) => console.log(d));*/
+        this.authService.login(this.authForm.value)
+            .subscribe((data: Array<{}>) => {
+                if (data.length > 0) {
+                    console.log('Success: ', data);
+                    this.loginError = false;
+                    localStorage.setItem('nickname', data[0]['username']);
+                    this.router.navigate(['/chat']).then((d) => console.log(d));
+                } else {
+                    this.loginError = true;
+                }
+            }, (err) => {
+                this.loginError = true;
+                console.log('Error: ', err);
+            });
     }
 }

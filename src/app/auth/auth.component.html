@@ -1,5 +1,8 @@
 <div class="auth-wrapper">
     <mat-card class="auth-form">
+        <mat-error *ngIf="loginError">
+            <div class="text-center">Wrong <strong>user name</strong> or <strong>password</strong>!</div>
+        </mat-error>
         <form [formGroup]="authForm" (submit)="login()">
             <mat-form-field class="auth-field">
                 <input required matInput placeholder="User name"
