@@ -9,6 +9,9 @@
         </mat-error>
         <div class="text-center">
             <button mat-button color="primary" [disabled]="nameControl.invalid" (click)="login()">Submit</button>
+            <div class="auth-registration">
+                or <a routerLink="/registration">Registration</a>
+            </div>
         </div>
     </mat-card>
 </div>

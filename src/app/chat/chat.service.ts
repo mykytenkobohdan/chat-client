@@ -1,5 +1,4 @@
 import {Injectable, ErrorHandler} from '@angular/core';
-import {Http, Response, RequestOptions} from '@angular/http';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
