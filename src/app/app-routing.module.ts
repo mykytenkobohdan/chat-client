@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {AuthComponent} from "./auth/auth.component";
 
 const routes: Routes = [
-    {path: '', component: AuthComponent, pathMatch: 'full'},
+    {path: '', redirectTo: 'auth', pathMatch: 'full'},
     // {path: '**', redirectTo: ''}
 ];
-
+// Try : CanActivate, CanActivateChild for routing guard;
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]

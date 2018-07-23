@@ -22,9 +22,8 @@ export class AuthComponent implements OnInit {
 
     public login(): void {
         console.log(this.authForm.value);
-        // localStorage.setItem('nickname', this.nameControl.value);
+        localStorage.setItem('nickname', this.authForm.value.username);
 
-        /* this.router.navigate(['/chat'])
-         .then((d) => console.log(d));*/
+        /* this.router.navigate(['/chat']).then((d) => console.log(d));*/
     }
 }

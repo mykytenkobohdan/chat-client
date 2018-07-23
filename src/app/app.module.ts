@@ -5,16 +5,15 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 
 import {AppComponent} from './app.component';
-import {AuthComponent} from './auth/auth.component';
 import {AppRoutingModule} from './app-routing.module';
 import {ChatModule} from './chat/chat.module';
 import {RegistrationModule} from './registration/registration.module';
+import {AuthModule} from './auth/auth.module';
 import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
     declarations: [
-        AppComponent,
-        AuthComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -23,6 +22,7 @@ import {SharedModule} from "./shared/shared.module";
         AppRoutingModule,
         ChatModule,
         RegistrationModule,
+        AuthModule,
         SharedModule,
         RouterModule
     ],
