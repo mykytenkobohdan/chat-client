@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
                     console.log('Success: ', data);
                     this.loginError = false;
                     localStorage.setItem('nickname', data['username']);
-                    // this.router.navigate(['/chat']).then((d) => console.log(d));
+                    this.router.navigate(['/chat']).then((d) => console.log(d));
                 }
             }, (err) => {
                 this.loginError = true;

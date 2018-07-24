@@ -1,5 +1,7 @@
 export interface Message {
-    nickName: string;
+    username: string;
     message: string;
     created?: any; // optional field
+    createdAt?: any; // optional field
+    updatedAt?: any; // optional field
 }

@@ -1,7 +1,17 @@
+@import "../../custom-theme.scss";
+
 mat-card {
   margin-top: 10px;
 }
 
 .new-message {
   width: 100%;
+}
+
+.message {
+  &.active {
+    mat-card {
+      background: mat-color($accent);
+    }
+  }
 }

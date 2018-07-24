@@ -1,11 +1,16 @@
 <ng-container *ngIf="messages && messages.length > 0">
-    <mat-card *ngFor="let message of messages">
-        <mat-card-subtitle class="d-flex justify-content-between">
-            <strong class="h6 font-weight-bold">{{message.nickName}}</strong>
-            <span>Created at: {{message.created | date: 'short'}}</span>
-        </mat-card-subtitle>
-        <mat-card-content>{{message.message}}</mat-card-content>
-    </mat-card>
+    <div class="row">
+        <div class="col-11 message" *ngFor="let message of messages"
+             [ngClass]="{'active': name === message.username, 'offset-1': name !== message.username}">
+            <mat-card class="p-3">
+                <mat-card-subtitle class="d-flex justify-content-between mb-0">
+                    <strong class="h6 font-weight-bold">{{message.username}}</strong>
+                    <span>{{message.createdAt | date: 'hh:mm dd.MM.yy'}}</span>
+                </mat-card-subtitle>
+                <mat-card-content>{{message.message}}</mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </ng-container>
 <br>
 <mat-card class="p-3">
