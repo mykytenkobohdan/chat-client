@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 })
 export class RegistrationComponent implements OnInit {
     public registrationForm: FormGroup;
+    public duplicateName: boolean = false;
 
     constructor(private fb: FormBuilder,
                 private registrationService: RegistrationService,
@@ -34,6 +35,13 @@ export class RegistrationComponent implements OnInit {
         this.registrationService.registration(data)
             .subscribe((res) => {
                 console.log('Response: ', res);
+                if (res['error']) {
+                    this.duplicateName = true;
+                    console.log(res['errorMessage']);
+                    return;
+                }
+
+                this.duplicateName = false;
                 this.registrationForm.reset();
                 localStorage.setItem('nickname', data.username);
                 this.router.navigate(['/chat']);
