@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {AuthService} from "./auth.service";
 
@@ -12,7 +13,7 @@ export class AuthComponent implements OnInit {
     public authForm: FormGroup;
     public loginError: boolean = false;
 
-    constructor(private router: Router, private authService: AuthService) {
+    constructor(private router: Router, private authService: AuthService, private toastr: ToastrService) {
     }
 
     ngOnInit() {
@@ -24,14 +25,15 @@ export class AuthComponent implements OnInit {
 
     public login(): void {
         this.authService.login(this.authForm.value)
-            .subscribe((data: Array<{}>) => {
-                if (data.length > 0) {
+            .subscribe((data) => {
+                if (data['error']) {
+                    this.loginError = true;
+                    this.toastr.error(data['errorMessage'])
+                } else {
                     console.log('Success: ', data);
                     this.loginError = false;
-                    localStorage.setItem('nickname', data[0]['username']);
-                    this.router.navigate(['/chat']).then((d) => console.log(d));
-                } else {
-                    this.loginError = true;
+                    localStorage.setItem('nickname', data['username']);
+                    // this.router.navigate(['/chat']).then((d) => console.log(d));
                 }
             }, (err) => {
                 this.loginError = true;
