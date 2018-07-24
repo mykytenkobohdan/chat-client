@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ValidatorFn} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 import {RegistrationService} from './registration.service';
 import {Router} from "@angular/router";
 
@@ -14,7 +15,8 @@ export class RegistrationComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private registrationService: RegistrationService,
-                private router: Router) {
+                private router: Router,
+                private toastr: ToastrService) {
     }
 
     ngOnInit() {
@@ -41,6 +43,7 @@ export class RegistrationComponent implements OnInit {
                     return;
                 }
 
+                this.toastr.success('You was authorize!');
                 this.duplicateName = false;
                 this.registrationForm.reset();
                 localStorage.setItem('nickname', data.username);
