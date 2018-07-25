@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {AuthService} from "./auth.service";
+import {User} from './user.model';
 
 @Component({
     selector: 'app-auth',
@@ -24,15 +25,18 @@ export class AuthComponent implements OnInit {
     }
 
     public login(): void {
-        this.authService.login(this.authForm.value)
-            .subscribe((data) => {
-                if (data['error']) {
+        this.authService
+            .login(this.authForm.value)
+            .subscribe((user: User) => {
+                console.log(user);
+
+                if (user.error) {
                     this.loginError = true;
-                    this.toastr.error(data['errorMessage'])
+                    this.toastr.error(user.errorMessage);
                 } else {
-                    console.log('Success: ', data);
+                    console.log('Success: ', user);
                     this.loginError = false;
-                    localStorage.setItem('nickname', data['username']);
+                    localStorage.setItem('username', user.username);
                     this.router.navigate(['/chat']).then((d) => console.log(d));
                 }
             }, (err) => {

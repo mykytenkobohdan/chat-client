@@ -25,8 +25,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.getChats();
 
-        if (localStorage.getItem('nickname')) {
-            this.name = localStorage.getItem('nickname');
+        if (localStorage.getItem('username')) {
+            this.name = localStorage.getItem('username');
         }
 
         // remove after adding sokets.
@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     public send() {
         const message: Message = {
-            username: localStorage.getItem('nickname'),
+            username: localStorage.getItem('username'),
             message: this.messageForm.controls.messageControl.value
         };
 
