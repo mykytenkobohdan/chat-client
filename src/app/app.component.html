@@ -1,4 +1,7 @@
-<mat-toolbar color="primary">Chat on MEAN Stack</mat-toolbar>
+<mat-toolbar color="primary" class="d-flex justify-content-between align-items-center">
+    <h1>Chat on MEAN Stack</h1>
+    <button (click)="signOut()" mat-button color="white">Sign out</button>
+</mat-toolbar>
 <main class="container">
     <router-outlet></router-outlet>
 </main>
