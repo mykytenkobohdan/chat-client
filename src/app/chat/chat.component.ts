@@ -16,7 +16,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     // public messageControl: FormControl = new FormControl('');
     public messages: Array<Message> = [];
-    public name = '';
+    private username = '';
+    public userId = '';
     private timer: any;
 
     constructor(private chatService: ChatService) {
@@ -25,8 +26,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.getChats();
 
-        if (localStorage.getItem('username')) {
-            this.name = localStorage.getItem('username');
+        if (localStorage.getItem('user')) {
+            const currentUser = JSON.parse(localStorage.getItem('user'));
+
+            this.username = currentUser['username'];
+            this.userId = currentUser['userId'];
         }
 
         // remove after adding sokets.
@@ -51,11 +55,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     public send() {
         const message: Message = {
-            username: localStorage.getItem('username'),
-            message: this.messageForm.controls.messageControl.value
+            username: this.username,
+            message: this.messageForm.controls.messageControl.value,
+            userId: this.userId
         };
-
-        console.log(this.messageForm);
 
         this.chatService.sendMessage(message)
             .subscribe(() => {

@@ -46,8 +46,7 @@ export class RegistrationComponent implements OnInit {
                 this.toastr.success('You was authorize!');
                 this.duplicateName = false;
                 this.registrationForm.reset();
-                localStorage.setItem('username', data.username);
-                this.router.navigate(['/chat']);
+                this.router.navigate(['/auth']);
             }, (err) => {
                 console.error(err);
             });

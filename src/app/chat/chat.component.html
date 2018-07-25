@@ -1,7 +1,7 @@
 <ng-container *ngIf="messages && messages.length > 0">
     <div class="row">
         <div class="col-11 message" *ngFor="let message of messages"
-             [ngClass]="{'active': name === message.username, 'offset-1': name !== message.username}">
+             [ngClass]="{'active': userId === message.userId, 'offset-1': userId !== message.userId}">
             <mat-card class="p-3">
                 <mat-card-subtitle class="d-flex justify-content-between mb-0">
                     <strong class="h6 font-weight-bold">{{message.username}}</strong>
