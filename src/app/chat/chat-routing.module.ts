@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ChatComponent} from './chat.component';
-import {AppGuard} from '../shared/app.guard';
 
 const routes: Routes = [
     {
-        path: 'chat',
-        canActivate: [AppGuard],
+        // path: 'chat', before lazy load module
+        path: '',
         component: ChatComponent
     }
 ];

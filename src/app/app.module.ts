@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ChatModule} from './chat/chat.module';
+import {ToastrModule} from 'ngx-toastr';
 import {RegistrationModule} from './registration/registration.module';
 import {AuthModule} from './auth/auth.module';
 import {SharedModule} from "./shared/shared.module";
@@ -20,11 +20,12 @@ import {SharedModule} from "./shared/shared.module";
         BrowserAnimationsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        ChatModule,
+        // ChatModule, remove module for lazy load
         RegistrationModule,
         AuthModule,
         SharedModule,
-        RouterModule
+        RouterModule,
+        ToastrModule.forRoot({positionClass: 'toast-top-center'})
     ],
     providers: [],
     bootstrap: [AppComponent]
