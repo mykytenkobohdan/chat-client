@@ -7,6 +7,7 @@ const routes: Routes = [
     {
         path: 'chat',
         canActivate: [AppGuard],
+        // lazy load module
         loadChildren: './chat/chat.module#ChatModule'
     }
     // {path: '', redirectTo: 'chat', pathMatch: 'full'},
