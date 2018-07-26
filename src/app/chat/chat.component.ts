@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
         // remove after adding sockets.
         this.timer = setInterval(() => {
-            this.getChats();
+            // this.getChats();
         }, 5000)
     }
 
@@ -53,7 +53,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.chatService.getMessages()
             .subscribe((data: Message[]) => {
                 this.messages = data;
-
                 console.log(this.messages);
             }, err => {
                 console.log(err);
@@ -81,7 +80,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
             });
     }
 
-    public onScroll() {
+    public onScroll(event) {
+        console.log(event.target.scrollTop);
+
         this.disableScrollDown = true;
     }
 

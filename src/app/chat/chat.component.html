@@ -1,6 +1,6 @@
 <div class="chat-wrap py-md-3">
     <!--<ng-container *ngIf="messages && messages.length > 0">-->
-        <div class="row chat-body" #scrollBottom (scroll)="onScroll()">
+        <div class="row chat-body" #scrollBottom (scroll)="onScroll($event)">
             <div class="col-11 message" *ngFor="let message of messages"
                  [ngClass]="{'active': userId === message.userId, 'offset-1': userId !== message.userId}">
                 <mat-card class="p-3">
