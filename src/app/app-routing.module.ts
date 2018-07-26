@@ -9,11 +9,12 @@ const routes: Routes = [
         canActivate: [AppGuard],
         // lazy load module
         loadChildren: './chat/chat.module#ChatModule'
-    }
-    // {path: '', redirectTo: 'chat', pathMatch: 'full'},
-    // {path: '**', redirectTo: ''}
+    },
+    {path: 'registration', loadChildren: './registration/registration.module#RegistrationModule'},
+    {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
+    {path: '**', redirectTo: 'chat'}
 ];
-// Try : CanActivate, CanActivateChild for routing guard;
+
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]

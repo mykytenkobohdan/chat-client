@@ -7,8 +7,6 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {ToastrModule} from 'ngx-toastr';
-import {RegistrationModule} from './registration/registration.module';
-import {AuthModule} from './auth/auth.module';
 import {SharedModule} from "./shared/shared.module";
 import {AppGuard} from "./app.guard";
 
@@ -22,8 +20,6 @@ import {AppGuard} from "./app.guard";
         ReactiveFormsModule,
         AppRoutingModule,
         // ChatModule, remove module for lazy load
-        RegistrationModule,
-        AuthModule,
         SharedModule,
         RouterModule,
         ToastrModule.forRoot({positionClass: 'toast-top-center'})
