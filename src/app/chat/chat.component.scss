@@ -8,6 +8,17 @@ mat-card {
   width: 100%;
 }
 
+.chat-wrap {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: calc(100vh - 64px);
+}
+
+.chat-body {
+  overflow-y: auto;
+}
+
 .message {
   &.active {
     mat-card {

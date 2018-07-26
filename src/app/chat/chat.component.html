@@ -1,30 +1,31 @@
-<ng-container *ngIf="messages && messages.length > 0">
-    <div class="row">
-        <div class="col-11 message" *ngFor="let message of messages"
-             [ngClass]="{'active': userId === message.userId, 'offset-1': userId !== message.userId}">
-            <mat-card class="p-3">
-                <mat-card-subtitle class="d-flex justify-content-between mb-0">
-                    <strong class="h6 font-weight-bold">{{message.username}}</strong>
-                    <span>{{message.createdAt | date: 'hh:mm dd.MM.yy'}}</span>
-                </mat-card-subtitle>
-                <mat-card-content>{{message.message}}</mat-card-content>
-            </mat-card>
+<div class="chat-wrap py-md-3">
+    <ng-container *ngIf="messages && messages.length > 0">
+        <div class="row chat-body">
+            <div class="col-11 message" *ngFor="let message of messages"
+                 [ngClass]="{'active': userId === message.userId, 'offset-1': userId !== message.userId}">
+                <mat-card class="p-3">
+                    <mat-card-subtitle class="d-flex justify-content-between mb-0">
+                        <strong class="h6 font-weight-bold">{{message.username}}</strong>
+                        <span>{{message.createdAt | date: 'hh:mm dd.MM.yy'}}</span>
+                    </mat-card-subtitle>
+                    <mat-card-content>{{message.message}}</mat-card-content>
+                </mat-card>
+            </div>
         </div>
-    </div>
-</ng-container>
-<br>
-<mat-card class="p-3">
-    <form [formGroup]="messageForm" (submit)="send()">
-        <mat-form-field class="new-message">
-            <input required matInput placeholder="Enter your message..."
-                   formControlName="messageControl">
-            <!-- if only input, without form, use: [formControl]="messageControl"-->
-        </mat-form-field>
-        <div class="text-center">
-            <button [disabled]="messageForm.invalid" mat-button color="primary">
-                <span class="d-inline-block mr-1">Send</span>
-                <i class="material-icons">send</i>
-            </button>
-        </div>
-    </form>
-</mat-card>
+    </ng-container>
+    <mat-card class="p-3">
+        <form [formGroup]="messageForm" (submit)="send()">
+            <mat-form-field class="new-message">
+                <input required matInput placeholder="Enter your message..."
+                       formControlName="messageControl">
+                <!-- if only input, without form, use: [formControl]="messageControl"-->
+            </mat-form-field>
+            <div class="text-center">
+                <button [disabled]="messageForm.invalid" mat-button color="primary">
+                    <span class="d-inline-block mr-1">Send</span>
+                    <i class="material-icons">send</i>
+                </button>
+            </div>
+        </form>
+    </mat-card>
+</div>
