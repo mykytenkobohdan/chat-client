@@ -16,6 +16,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
     public messages: Array<Message> = [];
     public userId = '';
+    private currentScrollPosition: number = 0;
     private username = '';
     private disableScrollDown = false;
     private timer: any;
@@ -37,7 +38,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
         // remove after adding sockets.
         this.timer = setInterval(() => {
-            // this.getChats();
+            this.getChats();
         }, 5000)
     }
 
@@ -81,7 +82,14 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     public onScroll(event) {
-        console.log(event.target.scrollTop);
+        if (!this.disableScrollDown) {
+            this.currentScrollPosition = event.target.scrollTop;
+        } else {
+            if (this.currentScrollPosition > event.target.scrollTop) {
+                console.log('scroll top');
+            }
+            this.currentScrollPosition = event.target.scrollTop;
+        }
 
         this.disableScrollDown = true;
     }
