@@ -38,7 +38,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
         // remove after adding sockets.
         this.timer = setInterval(() => {
-            this.getChats();
+            // this.getChats();
         }, 5000)
     }
 
