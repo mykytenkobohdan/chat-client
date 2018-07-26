@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatModule} from "./mat/mat.module";
 import {ValidatorMessageComponent} from './components/validator-message/validator-message.component';
-import {AppGuard} from "./app.guard";
 
 @NgModule({
     imports: [
@@ -10,7 +9,7 @@ import {AppGuard} from "./app.guard";
         MatModule
     ],
     declarations: [ValidatorMessageComponent],
-    providers: [AppGuard],
+    providers: [],
     exports: [MatModule, ValidatorMessageComponent]
 })
 export class SharedModule {

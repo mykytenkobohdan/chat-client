@@ -3,11 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {ChatComponent} from './chat.component';
 
 const routes: Routes = [
-    {
-        // path: 'chat', before lazy load module
-        path: '',
-        component: ChatComponent
-    }
+    // path: 'chat', before lazy load module
+    {path: '', component: ChatComponent}
 ];
 
 @NgModule({

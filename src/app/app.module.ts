@@ -10,6 +10,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {RegistrationModule} from './registration/registration.module';
 import {AuthModule} from './auth/auth.module';
 import {SharedModule} from "./shared/shared.module";
+import {AppGuard} from "./app.guard";
 
 @NgModule({
     declarations: [
@@ -27,7 +28,7 @@ import {SharedModule} from "./shared/shared.module";
         RouterModule,
         ToastrModule.forRoot({positionClass: 'toast-top-center'})
     ],
-    providers: [],
+    providers: [AppGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {
