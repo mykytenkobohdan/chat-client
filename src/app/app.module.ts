@@ -9,6 +9,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {ToastrModule} from 'ngx-toastr';
 import {SharedModule} from "./shared/shared.module";
 import {AppGuard} from "./app.guard";
+import {WebSocketService} from "./web-socket.service";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,7 @@ import {AppGuard} from "./app.guard";
         RouterModule,
         ToastrModule.forRoot({positionClass: 'toast-top-center'})
     ],
-    providers: [AppGuard],
+    providers: [AppGuard, WebSocketService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

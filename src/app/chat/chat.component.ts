@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy, OnChanges, ElementRef, ViewChild, AfterVie
 import {FormControl, FormGroup} from '@angular/forms';
 import {ChatService} from './chat.service';
 import {Message} from './chat.model';
+import {WebSocketService} from "../web-socket.service";
 
 @Component({
     selector: 'app-chat',
@@ -21,7 +22,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     private disableScrollDown = false;
     private timer: any;
 
-    constructor(private chatService: ChatService) {
+    constructor(private chatService: ChatService, private socketService: WebSocketService) {
+        this.socketService
+            .onMessage()
+            .subscribe(data => {
+                console.log(data);
+            });
     }
 
     ngOnInit() {
