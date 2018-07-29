@@ -5,35 +5,39 @@ import {environment} from '../environments/environment';
 import {Message} from './chat/chat.model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class WebSocketService {
-    private socket;
-    private host = environment.host;
+  private socket;
+  private host = environment.host;
 
-    constructor() {
-        this.socket = io(this.host);
-    }
+  constructor() {
+    this.socket = io(this.host);
+  }
 
-    public send(message: Message): void {
-        this.socket.emit('message', message);
-    }
+  public initSocket(): void {
+    this.socket = io(this.host);
+  }
 
-    public onMessage(): Observable<any> {
-        return new Observable<any>(observer => {
-            this.socket.on('message', (data) => {
-                observer.next(data);
-            });
+  public send(message: Message): void {
+    this.socket.emit('message', message);
+  }
 
-            return () => {
-                this.socket.disconnect();
-            };
-        });
-    }
+  public onMessage(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on('message', (data) => {
+        observer.next(data);
+      });
 
-    public onEvent(event: Event): Observable<any> {
-        return new Observable<Event>(observer => {
-            this.socket.on(event, () => observer.next());
-        });
-    }
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  public onEvent(event: Event): Observable<any> {
+    return new Observable<Event>(observer => {
+      this.socket.on(event, () => observer.next());
+    });
+  }
 }
