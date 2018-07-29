@@ -4,6 +4,11 @@ import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 import {Message} from './chat/chat.model';
 
+export enum Event {
+  CONNECT = 'connect',
+  DISCONNECT = 'disconnect'
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +17,7 @@ export class WebSocketService {
   private host = environment.host;
 
   constructor() {
-    this.socket = io(this.host);
+    // this.socket = io(this.host);
   }
 
   public initSocket(): void {
@@ -37,7 +42,9 @@ export class WebSocketService {
 
   public onEvent(event: Event): Observable<any> {
     return new Observable<Event>(observer => {
+      console.log('socket', event);
       this.socket.on(event, () => observer.next());
     });
   }
 }
+

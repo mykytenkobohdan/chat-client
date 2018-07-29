@@ -1,15 +1,16 @@
-import {Component, OnInit, OnDestroy, OnChanges, ElementRef, ViewChild, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, OnChanges, ElementRef, ViewChild, AfterViewChecked} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ChatService} from './chat.service';
 import {Message} from './chat.model';
 import {WebSocketService} from '../web-socket.service';
+import {Event} from '../web-socket.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked {
   // Array<Message> === Message[]
   @ViewChild('scrollBottom') private scrollContainer: ElementRef;
   public messageForm: FormGroup = new FormGroup({
@@ -20,14 +21,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   private currentScrollPosition = 0;
   private username = '';
   private disableScrollDown = false;
-  private timer: any;
 
   constructor(private chatService: ChatService, private socketService: WebSocketService) {
-    this.socketService
-      .onMessage()
-      .subscribe(data => {
-        console.log(data);
-      });
   }
 
   ngOnInit() {
@@ -42,14 +37,27 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.userId = currentUser['userId'];
     }
 
-    // remove after adding sockets.
-    this.timer = setInterval(() => {
-      // this.getChats();
-    }, 5000);
+    this.initIoConnection();
   }
 
-  ngOnDestroy() {
-    clearInterval(this.timer);
+  private initIoConnection(): void {
+    this.socketService.initSocket();
+
+    this.socketService.onMessage()
+      .subscribe((message: Message) => {
+        this.messages.push(message);
+        this.disableScrollDown = false;
+      });
+
+    this.socketService.onEvent(Event.CONNECT)
+      .subscribe(() => {
+        console.log('connected');
+      });
+
+    this.socketService.onEvent(Event.DISCONNECT)
+      .subscribe(() => {
+        console.log('disconnected');
+      });
   }
 
   ngAfterViewChecked() {
@@ -75,15 +83,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.chatService.sendMessage(message)
       .subscribe(() => {
-        // clear value or use .reset();
-        // this.messageForm.controls.messageControl.patchValue('');
         this.messageForm.reset();
-        // update chat
-        this.getChats();
-
-        setTimeout(() => {
-          this.disableScrollDown = false;
-        }, 50);
       }, (err) => {
         console.error(err);
       });
