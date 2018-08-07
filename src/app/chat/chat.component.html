@@ -1,17 +1,32 @@
 <div class="chat-wrap py-md-3">
     <!--<ng-container *ngIf="messages && messages.length > 0">-->
-        <div class="row chat-body" #scrollBottom (scroll)="onScroll($event)">
-            <div class="col-11 message" *ngFor="let message of messages"
-                 [ngClass]="{'active': userId === message.userId, 'offset-1': userId !== message.userId}">
-                <mat-card class="p-3">
-                    <mat-card-subtitle class="d-flex justify-content-between mb-0">
-                        <strong class="h6 font-weight-bold">{{message.username}}</strong>
-                        <span>{{message.createdAt | date: 'hh:mm dd.MM.yy'}}</span>
-                    </mat-card-subtitle>
-                    <mat-card-content>{{message.message}}</mat-card-content>
-                </mat-card>
-            </div>
+    <div class="chat-body" #scrollBottom (scroll)="onScroll($event)">
+        <div class="col-11 message" *ngFor="let message of messages"
+             [ngClass]="{'active': userId === message.userId, 'offset-1': userId !== message.userId}">
+            <mat-card class="p-3">
+                <mat-card-subtitle class="d-flex justify-content-between mb-0">
+                    <strong class="h6 font-weight-bold">{{message.username}}</strong>
+                    <div class="text-right">
+                        <div class="d-flex align-items-center">
+                            <span class=" mr-1">{{message.createdAt | date: 'hh:mm dd.MM.yy'}}</span>
+                            <i *ngIf="userId === message.userId" [matMenuTriggerFor]="menu" class="material-icons">more_vert</i>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item class="menu-item"
+                                        (click)="editMessage(message)">
+                                    <i class="material-icons">create</i>
+                                    Edit
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content class="d-flex align-items-center">
+                    <i *ngIf="message.isUpdated" class="material-icons">create</i>
+                    <span>{{message.message}}</span>
+                </mat-card-content>
+            </mat-card>
         </div>
+    </div>
     <!--</ng-container>-->
     <mat-card class="p-3">
         <form [formGroup]="messageForm" (submit)="send()">
@@ -20,12 +35,28 @@
                        formControlName="messageControl">
                 <!-- if only input, without form, use: [formControl]="messageControl"-->
             </mat-form-field>
-            <div class="text-center">
-                <button [disabled]="messageForm.invalid" mat-button color="primary">
-                    <span class="d-inline-block mr-1">Send</span>
-                    <i class="material-icons">send</i>
-                </button>
+            <div *ngIf="isEdit; else isSend" class="row">
+                <div class="col-6 text-right">
+                    <button (click)="edit($event)" mat-button color="primary">
+                        <span class="d-inline-block mr-1">Edit</span>
+                        <i class="material-icons">create</i>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button (click)="cancelEdit($event)" mat-button color="error">
+                        <span class="d-inline-block mr-1">Cancel</span>
+                        <i class="material-icons">cancel</i>
+                    </button>
+                </div>
             </div>
+            <ng-template #isSend>
+                <div class="text-center">
+                    <button [disabled]="messageForm.invalid" mat-button color="primary">
+                        <span class="d-inline-block mr-1">Send</span>
+                        <i class="material-icons">send</i>
+                    </button>
+                </div>
+            </ng-template>
         </form>
     </mat-card>
 </div>

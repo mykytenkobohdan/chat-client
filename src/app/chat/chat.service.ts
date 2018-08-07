@@ -3,21 +3,25 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ChatService {
-  private host: string = environment.host;
-  private url = `${this.host}/messages`;
+    private host: string = environment.host;
+    private url = `${this.host}/messages`;
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  public getMessages() {
-    // .map() -> for modification data from server.
-    return this.http.get(this.url);
-  }
+    public getMessages() {
+        // .map() -> for modification data from server.
+        return this.http.get(this.url);
+    }
 
-  public sendMessage(message) {
-    return this.http.post(this.url, message);
-  }
+    public sendMessage(message) {
+        return this.http.post(this.url, message);
+    }
+
+    public updateMessage(message) {
+        return this.http.put(this.url, message);
+    }
 }

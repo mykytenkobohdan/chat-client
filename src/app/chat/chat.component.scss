@@ -4,6 +4,10 @@ mat-card {
   margin-top: 10px;
 }
 
+.material-icons {
+  cursor: pointer;
+}
+
 .new-message {
   width: 100%;
 }
@@ -25,4 +29,10 @@ mat-card {
       background: mat-color($accent);
     }
   }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
