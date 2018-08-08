@@ -127,6 +127,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.messageForm.patchValue({messageControl: message.message});
     }
 
+    public removeMessage(message: Message) {
+        console.log('remove: ', message);
+    }
+
     public onScroll(event) {
         if (!this.disableScrollDown) {
             this.currentScrollPosition = event.target.scrollTop;
