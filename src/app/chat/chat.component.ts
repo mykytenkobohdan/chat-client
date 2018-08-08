@@ -95,6 +95,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.chatService.sendMessage(message)
             .subscribe(() => {
                 this.messageForm.reset();
+                this.messageForm.patchValue({messageControl: ''});
             }, (err) => {
                 console.error(err);
             });
@@ -154,5 +155,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    byDate(i, message: Message) {
+        return message ? message.createdAt : undefined;
     }
 }
