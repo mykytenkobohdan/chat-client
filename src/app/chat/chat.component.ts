@@ -121,6 +121,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         }
 
         this.isEdit = false;
+        this.messageForm.reset();
         this.messageForm.patchValue({ messageControl: '' });
     }
 
