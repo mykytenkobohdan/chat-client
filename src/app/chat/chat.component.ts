@@ -1,9 +1,9 @@
-import {Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewChecked} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {ChatService} from './chat.service';
-import {Message} from './chat.model';
-import {WebSocketService} from '../web-socket.service';
-import {Event} from '../web-socket.service';
+import { Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ChatService } from './chat.service';
+import { Message } from './chat.model';
+import { WebSocketService } from '../web-socket.service';
+import { Event } from '../web-socket.service';
 
 @Component({
     selector: 'app-chat',
@@ -95,7 +95,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.chatService.sendMessage(message)
             .subscribe(() => {
                 this.messageForm.reset();
-                this.messageForm.patchValue({messageControl: ''});
+                this.messageForm.patchValue({ messageControl: '' });
             }, (err) => {
                 console.error(err);
             });
@@ -119,13 +119,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         }
 
         this.isEdit = false;
-        this.messageForm.patchValue({messageControl: ''});
+        this.messageForm.patchValue({ messageControl: '' });
     }
 
     public editMessage(message: Message) {
         this.isEdit = true;
         this.messageForEdit = message;
-        this.messageForm.patchValue({messageControl: message.message});
+        this.messageForm.patchValue({ messageControl: message.message });
     }
 
     public removeMessage(message: Message) {
@@ -157,7 +157,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         }
     }
 
-    byDate(i, message: Message) {
-        return message ? message.createdAt : undefined;
+    byCreatedAt(i, message: Message) {
+        const date = new Date(message.createdAt);
+
+        return message ? date.getTime() : undefined;
     }
 }
