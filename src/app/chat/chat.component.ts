@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, ElementRef, ViewChild, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewChecked} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ChatService} from './chat.service';
 import {Message} from './chat.model';
@@ -24,7 +24,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     public isEdit = false;
     private messageForEdit: Message;
 
-    constructor(private chatService: ChatService, private socketService: WebSocketService) {
+    constructor(private chatService: ChatService, private socketService: WebSocketService, private ngZone: NgZone) {
     }
 
     ngOnInit() {

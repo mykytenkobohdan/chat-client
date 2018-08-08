@@ -36,8 +36,12 @@
     <mat-card class="p-3">
         <form [formGroup]="messageForm" (submit)="send()">
             <mat-form-field class="new-message">
-                <input required matInput placeholder="Enter your message..."
-                       formControlName="messageControl">
+                <textarea class="p-0" required matInput
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="2"
+                          cdkAutosizeMaxRows="10"
+                          placeholder="Enter your message..."
+                          formControlName="messageControl"></textarea>
                 <!-- if only input, without form, use: [formControl]="messageControl"-->
             </mat-form-field>
             <div *ngIf="isEdit; else isSend" class="row">
