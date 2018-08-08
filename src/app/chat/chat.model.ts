@@ -1,6 +1,6 @@
 export interface Message {
     username: string;
-    message: string;
+    message?: string;
     userId: string;
     isRemoved?: boolean;
     isUpdated?: boolean;

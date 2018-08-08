@@ -60,14 +60,16 @@ export class ChatComponent implements OnInit, AfterViewChecked {
                 });
             });
 
-        this.socketService.onEvent(Event.CONNECT)
-            .subscribe(() => {
-                console.log('connected');
-            });
 
-        this.socketService.onEvent(Event.DISCONNECT)
-            .subscribe(() => {
-                console.log('disconnected');
+        this.socketService.onRemoveMessage()
+            .subscribe((message: Message) => {
+                console.log(message);
+
+                this.messages.forEach((item: Message, index) => {
+                    if (item._id === message._id) {
+                        this.messages[index] = message;
+                    }
+                });
             });
     }
 
@@ -129,7 +131,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
 
     public removeMessage(message: Message) {
-        console.log('remove: ', message);
+        this.chatService.removeMessage(message._id)
+            .subscribe((data) => {
+                console.log(data);
+            }, (err) => {
+                console.error(err);
+            });
     }
 
     public onScroll(event) {

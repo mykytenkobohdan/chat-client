@@ -1,6 +1,6 @@
-import {Injectable, ErrorHandler} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { Injectable, ErrorHandler } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +23,11 @@ export class ChatService {
 
     public updateMessage(message) {
         return this.http.put(this.url, message);
+    }
+
+    public removeMessage(messageId: string) {
+        const id = { id: messageId };
+
+        return this.http.delete(this.url, { params: id });
     }
 }

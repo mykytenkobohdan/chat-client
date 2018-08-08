@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import {Observable} from 'rxjs';
-import {environment} from '../environments/environment';
-import {Message} from './chat/chat.model';
+import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
+import { Message } from './chat/chat.model';
 
 export enum Event {
     CONNECT = 'connect',
@@ -47,6 +47,18 @@ export class WebSocketService {
     public onUpdateMessage(): Observable<any> {
         return new Observable<any>(observer => {
             this.socket.on('update-message', (data) => {
+                observer.next(data);
+            });
+
+            return () => {
+                this.socket.disconnect();
+            };
+        });
+    }
+
+    public onRemoveMessage(): Observable<any> {
+        return new Observable<any>(observer => {
+            this.socket.on('remove-message', (data) => {
                 observer.next(data);
             });
 
