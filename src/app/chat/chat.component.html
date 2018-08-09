@@ -2,7 +2,7 @@
   <!--<ng-container *ngIf="messages && messages.length > 0">-->
   <div class="chat-body" #scrollBottom (scroll)="onScroll($event)">
     <div class="message" *ngFor="let message of messages" [ngClass]="{'active': userId === message.userId}">
-      <div class="removed-message" *ngIf="message.isRemoved" class="text-center">
+      <div *ngIf="message.isRemoved" class="text-center removed-message">
         {{message.username}} removed message at {{message.updatedAt | date: 'HH:mm:ss dd.MM.yy'}}
       </div>
       <mat-card *ngIf="!message.isRemoved" class="p-3">
