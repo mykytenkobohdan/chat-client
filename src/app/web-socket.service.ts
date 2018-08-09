@@ -17,7 +17,6 @@ export class WebSocketService {
     private host = environment.host;
 
     constructor() {
-        // this.socket = io(this.host);
     }
 
     public initSocket(): void {
@@ -32,7 +31,7 @@ export class WebSocketService {
         this.socket.emit('update-message', message);
     }
 
-    public onMessage(): Observable<any> {
+    public onCreateMessage(): Observable<any> {
         return new Observable<any>(observer => {
             this.socket.on('message', (data) => {
                 observer.next(data);

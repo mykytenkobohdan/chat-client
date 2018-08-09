@@ -17,9 +17,9 @@ export class ChatService {
         return this.http.get(this.url);
     }
 
-    public sendMessage(message) {
-        return this.http.post(this.url, message);
-    }
+    // public sendMessage(message) {
+    //     return this.http.post(this.url, message);
+    // }
 
     public updateMessage(message) {
         return this.http.put(this.url, message);

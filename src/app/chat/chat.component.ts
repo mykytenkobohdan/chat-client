@@ -48,8 +48,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private initIoConnection(): void {
         this.socketService.initSocket();
 
-        this.socketService.onMessage()
+        this.socketService.onCreateMessage()
             .subscribe((message: Message) => {
+                this.messageForm.reset();
+                this.messageForm.patchValue({ messageControl: '' });
                 this.messages.push(message);
                 this.disableScrollDown = false;
             });
@@ -97,13 +99,15 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             userId: this.userId
         };
 
-        this.chatService.sendMessage(message)
-            .subscribe(() => {
-                this.messageForm.reset();
-                this.messageForm.patchValue({ messageControl: '' });
-            }, (err) => {
-                console.error(err);
-            });
+        this.socketService.send(message);
+
+        // this.chatService.sendMessage(message)
+        //     .subscribe(() => {
+        //         this.messageForm.reset();
+        //         this.messageForm.patchValue({ messageControl: '' });
+        //     }, (err) => {
+        //         console.error(err);
+        //     });
     }
 
     public edit(event) {
