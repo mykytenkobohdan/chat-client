@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, ValidatorFn} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {RegistrationService} from './registration.service';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { RegistrationService } from './registration.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-registration',
@@ -11,12 +11,22 @@ import {Router} from "@angular/router";
 })
 export class RegistrationComponent implements OnInit {
     public registrationForm: FormGroup;
-    public duplicateName: boolean = false;
+    public duplicateName = false;
 
     constructor(private fb: FormBuilder,
-                private registrationService: RegistrationService,
-                private router: Router,
-                private toastr: ToastrService) {
+        private registrationService: RegistrationService,
+        private router: Router,
+        private toastr: ToastrService) {
+    }
+
+    private static passwordsAreEqual(): ValidatorFn {
+        return (group: FormGroup) => {
+            if (!(group.dirty || group.touched) || group.get('pwd').value === group.get('confirm').value) {
+                return null;
+            }
+
+            return { passwordEqual: true };
+        };
     }
 
     ngOnInit() {
@@ -26,7 +36,7 @@ export class RegistrationComponent implements OnInit {
             password: this.fb.group({
                 pwd: ['', [Validators.required, Validators.minLength(3)]],
                 confirm: ['', [Validators.required, Validators.minLength(3)]]
-            }, {validator: RegistrationComponent.passwordsAreEqual()})
+            }, { validator: RegistrationComponent.passwordsAreEqual() })
         });
     }
 
@@ -36,7 +46,6 @@ export class RegistrationComponent implements OnInit {
 
         this.registrationService.registration(data)
             .subscribe((res) => {
-                console.log('Response: ', res);
                 if (res['error']) {
                     this.duplicateName = true;
                     console.log(res['errorMessage']);
@@ -50,15 +59,5 @@ export class RegistrationComponent implements OnInit {
             }, (err) => {
                 console.error(err);
             });
-    }
-
-    private static passwordsAreEqual(): ValidatorFn {
-        return (group: FormGroup) => {
-            if (!(group.dirty || group.touched) || group.get('pwd').value === group.get('confirm').value) {
-                return null;
-            }
-
-            return {passwordEqual: true}
-        };
     }
 }
