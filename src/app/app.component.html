@@ -3,7 +3,17 @@
     <a mat-button routerLink="/">Chat on MEAN Stack</a>
   </h1>
   <div *ngIf="isLogin">
-    <button (click)="signOut()" mat-button color="white">Sign out</button>
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <i class="material-icons">account_box</i> {{user.username}}
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item>
+        <i class="material-icons">settings</i> Setting
+      </button>
+      <button (click)="signOut()" mat-button color="white">
+        <i class="material-icons">exit_to_app</i> Sign out
+      </button>
+    </mat-menu>
   </div>
 </mat-toolbar>
 <main class="container">

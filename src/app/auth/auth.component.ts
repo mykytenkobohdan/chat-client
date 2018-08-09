@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { User } from './user.model';
+import { AppService } from '../app.service';
 
 @Component({
     selector: 'app-auth',
@@ -13,9 +14,13 @@ import { User } from './user.model';
 export class AuthComponent implements OnInit {
     public authForm: FormGroup;
     public loginError = false;
-    @Output() isAuth: EventEmitter<User> = new EventEmitter;
 
-    constructor(private router: Router, private authService: AuthService, private toastr: ToastrService) {
+    constructor(
+        private router: Router,
+        private authService: AuthService,
+        private toastr: ToastrService,
+        private appService: AppService
+    ) {
     }
 
     ngOnInit() {
@@ -36,12 +41,13 @@ export class AuthComponent implements OnInit {
                     this.toastr.error(user.errorMessage);
                 } else {
                     this.loginError = false;
-                    this.isAuth.emit(user);
 
                     localStorage.setItem('user', JSON.stringify({
                         username: user.username,
                         userId: user._id
                     }));
+
+                    this.appService.authChange(user);
 
                     this.router.navigate(['/chat']).then((d) => console.log(d));
                 }

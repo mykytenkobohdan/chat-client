@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ChatService } from './chat.service';
 import { Message } from './chat.model';
 import { WebSocketService } from '../web-socket.service';
-import { Event } from '../web-socket.service';
 
 @Component({
     selector: 'app-chat',
@@ -24,7 +23,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     public isEdit = false;
     private messageForEdit: Message;
 
-    constructor(private chatService: ChatService, private socketService: WebSocketService, private ngZone: NgZone) {
+    constructor(
+        private chatService: ChatService,
+        private socketService: WebSocketService,
+        private ngZone: NgZone
+    ) {
     }
 
     ngOnInit() {
