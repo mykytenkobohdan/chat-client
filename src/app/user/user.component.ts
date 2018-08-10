@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   private userId: string;
   public isCurrentUser: boolean;
   public user: User;
+  public oldUser: User;
 
   constructor(private route: ActivatedRoute, private userService: UserService) {
     this.route.params.subscribe(params => {
@@ -34,10 +35,8 @@ export class UserComponent implements OnInit {
   getUser(id) {
     this.userService.getUser(id)
       .subscribe((user: User) => {
-        console.log('User: ', user);
+        this.oldUser = Object.assign({}, user);
         this.user = user;
-      }, err => {
-        console.log(err);
-      });
+      }, err => console.log(err));
   }
 }

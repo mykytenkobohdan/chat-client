@@ -1,13 +1,24 @@
 <div *ngIf="user">
   <h3 class="text-center mt-2">User {{user.username}} page</h3>
   <div class="row">
-    <div class="col-3">
-      <strong>Name: </strong>
+    <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+      <div class="row">
+        <div class="col-3 col-md-2">
+          <strong>Name: </strong>
+        </div>
+        <div class="col-9 col-md-10">
+          <span>{{user.username}}</span>
+        </div>
+        <div class="col-3 col-md-2">
+          <strong>Email: </strong>
+        </div>
+        <div class="col-9 col-md-10">
+          <span>{{user.email}}</span>
+        </div>
+      </div>
     </div>
-    <div class="col-9">{{user.username}}</div>
-    <div class="col-3">
-      <strong>Email: </strong>
-    </div>
-    <div class="col-9">{{user.email}}</div>
   </div>
+</div>
+<div *ngIf="!user">
+  <h2 class="text-center">User not found!</h2>
 </div>
