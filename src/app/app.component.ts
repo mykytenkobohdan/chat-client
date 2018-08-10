@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
             .behaviorSubject
             .subscribe(item => {
                 this.isLogin = !!localStorage.getItem('user');
+                this.user = JSON.parse(localStorage.getItem('user'));
             });
     }
 
