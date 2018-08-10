@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit {
         this.authService
             .login(this.authForm.value)
             .subscribe((user: User) => {
-                console.log(user);
+                console.log('Useer: ', user);
 
                 if (user.error) {
                     this.loginError = true;

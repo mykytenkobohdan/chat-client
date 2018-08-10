@@ -7,7 +7,7 @@
       <i class="material-icons">account_box</i> {{user.username}}
     </button>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item>
+      <button [routerLink]="['user', user.userId]" mat-menu-item>
         <i class="material-icons">settings</i> Setting
       </button>
       <button (click)="signOut()" mat-button color="white">

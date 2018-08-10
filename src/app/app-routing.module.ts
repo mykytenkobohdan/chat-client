@@ -12,7 +12,11 @@ const routes: Routes = [
     },
     { path: 'registration', loadChildren: './registration/registration.module#RegistrationModule' },
     { path: 'auth', loadChildren: './auth/auth.module#AuthModule' },
-    { path: 'user/:userId', loadChildren: './user/user.module#UserModule' },
+    {
+        path: 'user/:userId',
+        canActivate: [AppGuard],
+        loadChildren: './user/user.module#UserModule'
+    },
     { path: '**', redirectTo: 'chat' }
 ];
 
