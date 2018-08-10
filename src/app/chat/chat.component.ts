@@ -58,18 +58,17 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
         this.socketService.onUpdateMessage()
             .subscribe((message: Message) => {
+                this.cancelEdit(null);
+
                 this.messages.forEach((item: Message, index) => {
                     if (item._id === message._id) {
                         this.messages[index] = message;
                     }
                 });
-            });
-
+            }, err => console.error(err));
 
         this.socketService.onRemoveMessage()
             .subscribe((message: Message) => {
-                console.log(message);
-
                 this.messages.forEach((item: Message, index) => {
                     if (item._id === message._id) {
                         this.messages[index] = message;
@@ -100,26 +99,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         };
 
         this.socketService.send(message);
-
-        // this.chatService.sendMessage(message)
-        //     .subscribe(() => {
-        //         this.messageForm.reset();
-        //         this.messageForm.patchValue({ messageControl: '' });
-        //     }, (err) => {
-        //         console.error(err);
-        //     });
     }
 
     public edit(event) {
         event.preventDefault();
 
         this.messageForEdit.message = this.messageForm.get('messageControl').value;
-        this.chatService.updateMessage(this.messageForEdit)
-            .subscribe(() => {
-                this.cancelEdit(null);
-            }, (err) => {
-                console.error(err);
-            });
+        this.socketService.update(this.messageForEdit);
     }
 
     public cancelEdit(event) {
