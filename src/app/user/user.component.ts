@@ -43,6 +43,8 @@ export class UserComponent implements OnInit {
   }
 
   edit() {
+    // "5b56dbd02aec7d7b112306b7"
+
     if (this.userForm.invalid) {
       this.toastr.error('Form is invalid!');
       return;
@@ -51,7 +53,11 @@ export class UserComponent implements OnInit {
     this.user.username = this.userForm.get('username').value;
     this.user.email = this.userForm.get('email').value;
 
-    console.log('Edit: ', this.user);
+    this.userService.updateUser(this.user)
+      .subscribe(u => {
+        console.log('New user: ', u);
+        this.toastr.success('User updated!');
+      }, err => console.log(err));
   }
 
   initForm() {
