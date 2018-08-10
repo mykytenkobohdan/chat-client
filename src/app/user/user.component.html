@@ -1,20 +1,53 @@
 <div *ngIf="user">
   <h3 class="text-center mt-2">User {{user.username}} page</h3>
-  <div class="row">
+  <form *ngIf="isCurrentUser" [formGroup]="userForm">
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+        <div class="row align-items-center">
+          <div class="col-3 col-md-2">
+            <strong>Name: </strong>
+          </div>
+          <div class="col-9 col-md-10">
+            <mat-form-field class="d-block">
+              <input required matInput formControlName="username">
+              <mat-error>
+                <app-validator-message [field]="userForm.get('username')"></app-validator-message>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-3 col-md-2">
+            <strong>Email: </strong>
+          </div>
+          <div class="col-9 col-md-10">
+            <mat-form-field class="d-block">
+              <input required formControlName="email" type="email" matInput>
+              <mat-error>
+                <app-validator-message [field]="userForm.get('email')"></app-validator-message>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 text-right">
+        <button (click)="cancelEdit()" mat-button color="warn">Cancel</button>
+      </div>
+      <div class="col-6">
+        <button (click)="edit()" mat-button color="primary">Edit</button>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="!isCurrentUser" class="row">
     <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-3 col-md-2">
           <strong>Name: </strong>
         </div>
-        <div class="col-9 col-md-10">
-          <span>{{user.username}}</span>
-        </div>
+        <div class="col-9 col-md-10">{{user.username}}</div>
         <div class="col-3 col-md-2">
           <strong>Email: </strong>
         </div>
-        <div class="col-9 col-md-10">
-          <span>{{user.email}}</span>
-        </div>
+        <div class="col-9 col-md-10">{{user.email}}</div>
       </div>
     </div>
   </div>
