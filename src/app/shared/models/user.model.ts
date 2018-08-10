@@ -4,6 +4,6 @@ export interface User {
     email: string;
     createdAt: Date;
     updatedAt: Date;
-    error?: boolean,
+    error?: boolean;
     errorMessage?: string;
 }

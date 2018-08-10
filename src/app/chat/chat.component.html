@@ -7,7 +7,9 @@
       </div>
       <mat-card *ngIf="!message.isRemoved" class="p-3">
         <mat-card-subtitle class="d-flex justify-content-between mb-0">
-          <strong class="h6 font-weight-bold">{{message.username}}</strong>
+          <strong class="h6 font-weight-bold">
+            <a [routerLink]="['/user', message.userId]">{{message.username}}</a>
+          </strong>
           <div class="text-right">
             <div class="d-flex align-items-center">
               <span class=" mr-1">{{message.createdAt | date: 'HH:mm:ss dd.MM.yy'}}</span>
