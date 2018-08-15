@@ -31,13 +31,13 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('init');
+
     if (!localStorage.getItem('user')) {
       return;
     }
 
-    const savedUserId = JSON.parse(localStorage.getItem('user')).userId;
-
-    this.isCurrentUser = savedUserId === this.userId;
+    this.isCurrentUser = JSON.parse(localStorage.getItem('user')).userId === this.userId;
   }
 
   cancelEdit(event) {
@@ -50,30 +50,33 @@ export class UserComponent implements OnInit {
   }
 
   edit(event) {
+    console.log(this.userForm);
+
     event.preventDefault();
+    return;
+    // if (this.userForm.invalid) {
+    //   this.toastr.error('Form is invalid!');
+    //   return;
+    // }
 
-    if (this.userForm.invalid) {
-      this.toastr.error('Form is invalid!');
-      return;
-    }
+    // this.user.username = this.userForm.get('username').value;
+    // this.user.email = this.userForm.get('email').value;
 
-    this.user.username = this.userForm.get('username').value;
-    this.user.email = this.userForm.get('email').value;
-
-    this.userService.updateUser(this.user)
-      .subscribe((user: User) => {
-        this.oldUser = Object.assign({}, user);
-        this.appService
-          .saveUserToLocal(user)
-          .authChange(user);
-        this.toastr.success('User updated!');
-      }, err => console.log(err));
+    // this.userService.updateUser(this.user)
+    //   .subscribe((user: User) => {
+    //     this.oldUser = Object.assign({}, user);
+    //     this.appService
+    //       .saveUserToLocal(user)
+    //       .authChange(user);
+    //     this.toastr.success('User updated!');
+    //   }, err => console.log(err));
   }
 
   initForm() {
     this.userForm = new FormGroup({
       username: new FormControl(this.user.username, [Validators.required, Validators.minLength(3)]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+      currentPassword: new FormControl('', [Validators.required, this.validateCurPassword(this.oldUser.password)])
     });
   }
 
@@ -82,8 +85,20 @@ export class UserComponent implements OnInit {
       .subscribe((user: User) => {
         this.oldUser = Object.assign({}, user);
         this.user = user;
-
+        this.isCurrentUser = JSON.parse(localStorage.getItem('user')).userId === this.userId;
         this.initForm();
       }, err => console.log(err));
+  }
+
+  validateCurPassword(oldPass) {
+    return (c: FormControl) => {
+      const old = oldPass;
+
+      return old === c.value ? null : {
+        currentPassword: {
+          valid: false
+        }
+      };
+    };
   }
 }

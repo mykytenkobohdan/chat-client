@@ -6,4 +6,5 @@ export interface User {
     updatedAt: Date;
     error?: boolean;
     errorMessage?: string;
+    password?: string;
 }

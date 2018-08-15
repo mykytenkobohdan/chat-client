@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-validator-message',
@@ -34,11 +34,17 @@ export class ValidatorMessageComponent {
                 'Does not match to format';
         }
 
+        if (field.errors.hasOwnProperty('currentPassword')) {
+            config['currentPassword'] = (typeof field.errors.custom === 'string' && field.errors.custom.length) ?
+                field.errors.custom :
+                'The password does not match the present';
+        }
+
         if (field.errors.hasOwnProperty('minlength')) {
-            config['minlength'] = `Minimum length ${ field.errors.minlength.requiredLength}`;
+            config['minlength'] = `Minimum length ${field.errors.minlength.requiredLength}`;
         }
         if (field.errors.hasOwnProperty('maxlength')) {
-            config['maxlength'] = `Maximum length ${ field.errors.maxlength.requiredLength}`;
+            config['maxlength'] = `Maximum length ${field.errors.maxlength.requiredLength}`;
         }
 
         Object.keys(field.errors).forEach((error: string) => {
