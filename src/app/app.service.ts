@@ -6,13 +6,13 @@ import { User } from './shared/models/user.model';
   providedIn: 'root'
 })
 export class AppService {
-  behaviorSubject = new BehaviorSubject<any>({});
+  userSubject = new Subject<any>();
 
   constructor() {
   }
 
   authChange(event) {
-    this.behaviorSubject.next(event);
+    this.userSubject.next(event);
   }
 
   saveUserToLocal(user: User) {

@@ -1,6 +1,6 @@
 <div *ngIf="user">
   <h3 class="text-center mt-2">User {{user.username}} page</h3>
-  <form *ngIf="isCurrentUser" [formGroup]="userForm">
+  <form *ngIf="isCurrentUser" [formGroup]="userForm" (submit)="edit($event)">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
         <div class="row align-items-center">
@@ -29,10 +29,10 @@
         </div>
       </div>
       <div class="col-6 text-right">
-        <button (click)="cancelEdit()" mat-button color="warn">Cancel</button>
+        <button (click)="cancelEdit($event)" type="button" mat-button color="warn">Cancel</button>
       </div>
       <div class="col-6">
-        <button (click)="edit()" mat-button color="primary">Edit</button>
+        <button type="submit" mat-button color="primary">Edit</button>
       </div>
     </div>
   </form>

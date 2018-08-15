@@ -40,14 +40,18 @@ export class UserComponent implements OnInit {
     this.isCurrentUser = savedUserId === this.userId;
   }
 
-  cancelEdit() {
+  cancelEdit(event) {
+    event.preventDefault();
+
     this.userForm.patchValue({
       username: this.oldUser.username,
       email: this.oldUser.email
     });
   }
 
-  edit() {
+  edit(event) {
+    event.preventDefault();
+
     if (this.userForm.invalid) {
       this.toastr.error('Form is invalid!');
       return;
@@ -58,6 +62,7 @@ export class UserComponent implements OnInit {
 
     this.userService.updateUser(this.user)
       .subscribe((user: User) => {
+        this.oldUser = Object.assign({}, user);
         this.appService
           .saveUserToLocal(user)
           .authChange(user);
@@ -79,7 +84,6 @@ export class UserComponent implements OnInit {
         this.user = user;
 
         this.initForm();
-        console.log(this.oldUser);
       }, err => console.log(err));
   }
 }

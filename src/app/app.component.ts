@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.appService
-            .behaviorSubject
+            .userSubject
             .subscribe(item => {
                 console.log('BS: ', item);
 
