@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../shared/models/user.model';
 import { UserService } from './user.service';
 import { ToastrService } from 'ngx-toastr';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +18,12 @@ export class UserComponent implements OnInit {
   public oldUser: User;
   public userForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private toastr: ToastrService) {
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private toastr: ToastrService,
+    private appService: AppService
+  ) {
     this.route.params.subscribe(params => {
       this.userId = params.userId;
       this.getUser(this.userId);
@@ -32,7 +38,6 @@ export class UserComponent implements OnInit {
     const savedUserId = JSON.parse(localStorage.getItem('user')).userId;
 
     this.isCurrentUser = savedUserId === this.userId;
-    console.log(this.isCurrentUser);
   }
 
   cancelEdit() {
@@ -43,8 +48,6 @@ export class UserComponent implements OnInit {
   }
 
   edit() {
-    // "5b56dbd02aec7d7b112306b7"
-
     if (this.userForm.invalid) {
       this.toastr.error('Form is invalid!');
       return;
@@ -54,8 +57,10 @@ export class UserComponent implements OnInit {
     this.user.email = this.userForm.get('email').value;
 
     this.userService.updateUser(this.user)
-      .subscribe(u => {
-        console.log('New user: ', u);
+      .subscribe((user: User) => {
+        this.appService
+          .saveUserToLocal(user)
+          .authChange(user);
         this.toastr.success('User updated!');
       }, err => console.log(err));
   }

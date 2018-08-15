@@ -34,20 +34,15 @@ export class AuthComponent implements OnInit {
         this.authService
             .login(this.authForm.value)
             .subscribe((user: User) => {
-                console.log('Useer: ', user);
-
                 if (user.error) {
                     this.loginError = true;
                     this.toastr.error(user.errorMessage);
                 } else {
                     this.loginError = false;
 
-                    localStorage.setItem('user', JSON.stringify({
-                        username: user.username,
-                        userId: user._id
-                    }));
-
-                    this.appService.authChange(user);
+                    this.appService
+                        .saveUserToLocal(user)
+                        .authChange(user);
 
                     this.router.navigate(['/chat']).then((d) => console.log(d));
                 }

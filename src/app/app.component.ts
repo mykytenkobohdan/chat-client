@@ -17,9 +17,11 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.subscription = this.appService
+        this.appService
             .behaviorSubject
             .subscribe(item => {
+                console.log('BS: ', item);
+
                 this.isLogin = !!localStorage.getItem('user');
                 this.user = JSON.parse(localStorage.getItem('user'));
             });
