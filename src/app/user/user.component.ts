@@ -76,12 +76,11 @@ export class UserComponent implements OnInit {
     this.userForm = new FormGroup({
       username: new FormControl(this.user.username, [Validators.required, Validators.minLength(3)]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-      // dateFormatted: new FormControl(this.forecast.dateFormatted, 
-      // { validators: Validators.required, asyncValidators: 
-      // [this.forecastValidators.existingDateValidator(this.forecast.dateFormatted)], updateOn: 'blur' }),
-      // updateOn: 'blur'
-      currentPassword: new FormControl('', [Validators.required, this.validateCurPassword(this.oldUser.password)])
-    });
+      currentPassword: new FormControl('', {
+        validators: [Validators.required, this.validateCurPassword(this.oldUser.password)],
+        updateOn: 'blur'
+      })
+    })
   }
 
   getUser(id) {
@@ -96,13 +95,16 @@ export class UserComponent implements OnInit {
 
   validateCurPassword(oldPass) {
     return (c: FormControl) => {
-      const old = oldPass;
+      if (c.value.length > 0) {
+        console.log(oldPass);
+        const old = oldPass;
 
-      return old === c.value ? null : {
-        currentPassword: {
-          valid: false
-        }
-      };
+        return old === c.value ? null : {
+          currentPassword: {
+            valid: false
+          }
+        };
+      }
     };
   }
 }
