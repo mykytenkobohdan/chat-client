@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { User } from '../shared/models/user.model';
 import { AppService } from '../app.service';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-auth',
@@ -14,6 +15,8 @@ import { AppService } from '../app.service';
 export class AuthComponent implements OnInit {
     public authForm: FormGroup;
     public loginError = false;
+    private host: string = environment.host;
+    public googleAuthorize = `${this.host}/login/google`;
 
     constructor(
         private router: Router,
