@@ -26,6 +26,9 @@
               </mat-error>
             </mat-form-field>
           </div>
+        </div>
+
+        <div *ngIf="isChangePass" class="row align-items-center">
           <div class="col-3">
             <strong>Current Password: </strong>
           </div>
@@ -38,21 +41,37 @@
             </mat-form-field>
           </div>
           <div class="col-12" *ngIf="userForm.get('currentPassword').valid">
-            test new password
+            <div class="row align-items-center">
+              <div class="col-3">
+                <strong>New Password: </strong>
+              </div>
+              <div class="col-9">
+                <mat-form-field class="d-block">
+                  <input required formControlName="newPassword" type="password" matInput>
+                  <mat-error>
+                    <app-validator-message [field]="userForm.get('newPassword')"></app-validator-message>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="text-center">
+          <button *ngIf="!isChangePass" mat-button color="primary" type="button" (click)="showPassword()">Change password</button>
+          <button *ngIf="isChangePass" mat-button color="warn" type="button" (click)="resetPassword()">Cancel changing password</button>
+        </div>
+
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-6 text-right">
-        <button (click)="cancelEdit($event)" type="button" mat-button color="warn">Cancel</button>
+        <button (click)="cancelEdit($event)" type="button" mat-stroked-button color="warn">Cancel</button>
       </div>
       <div class="col-6">
-        <button type="submit" mat-button color="primary">Edit</button>
+        <button type="submit" mat-stroked-button color="primary">Edit</button>
       </div>
     </div>
   </form>
-
   <div *ngIf="!isCurrentUser" class="row">
     <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
       <div class="row align-items-center">
