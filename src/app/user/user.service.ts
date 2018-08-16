@@ -18,4 +18,13 @@ export class UserService {
   updateUser(user) {
     return this.http.put(this.url, user);
   }
+
+  checkPassword(newPassword, userId) {
+    const data = {
+      newPassword,
+      userId
+    };
+
+    return this.http.post(`${this.url}/check-pass`, data);
+  }
 }

@@ -5,6 +5,7 @@ import { User } from '../shared/models/user.model';
 import { UserService } from './user.service';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-user',
@@ -77,10 +78,10 @@ export class UserComponent implements OnInit {
       username: new FormControl(this.user.username, [Validators.required, Validators.minLength(3)]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
       currentPassword: new FormControl('', {
-        validators: [Validators.required, this.validateCurPassword(this.oldUser.password)],
+        validators: [Validators.required, this.validateCurPassword()],
         updateOn: 'blur'
       })
-    })
+    });
   }
 
   getUser(id) {
@@ -93,17 +94,19 @@ export class UserComponent implements OnInit {
       }, err => console.log(err));
   }
 
-  validateCurPassword(oldPass) {
-    return (c: FormControl) => {
-      if (c.value.length > 0) {
-        console.log(oldPass);
-        const old = oldPass;
+  validateCurPassword() {
+    return (pass: FormControl) => {
+      if (pass.value.length > 0) {
+        let check = null;
 
-        return old === c.value ? null : {
-          currentPassword: {
-            valid: false
-          }
-        };
+        this.userService.checkPassword(pass.value, this.user._id)
+          .subscribe(data => {
+            console.log('D', data);
+            check = data;
+            return data;
+          });
+
+        return check;
       }
     };
   }
