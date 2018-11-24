@@ -40,6 +40,12 @@ export class ValidatorMessageComponent {
                 'The password does not match the present';
         }
 
+        if (field.errors.hasOwnProperty('newPassword')) {
+            config['newPassword'] = (typeof field.errors.custom === 'string' && field.errors.custom.length) ?
+                field.errors.custom :
+                'The new password can not be equal to the old password.';
+        }
+
         if (field.errors.hasOwnProperty('minlength')) {
             config['minlength'] = `Minimum length ${field.errors.minlength.requiredLength}`;
         }

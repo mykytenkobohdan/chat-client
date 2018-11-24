@@ -1,29 +1,33 @@
 <div class="auth-wrapper">
-    <mat-card class="auth-form">
-        <mat-error *ngIf="loginError">
-            <div class="text-center">Wrong <strong>user name</strong> or <strong>password</strong>!</div>
+  <mat-card class="auth-form">
+    <mat-error *ngIf="loginError">
+      <div class="text-center">Wrong
+        <strong>user name</strong> or
+        <strong>password</strong>!</div>
+    </mat-error>
+    <form [formGroup]="authForm" (submit)="login()">
+      <mat-form-field class="auth-field">
+        <input required matInput placeholder="User name" formControlName="username">
+        <mat-error>
+          <app-validator-message [field]="authForm.get('username')"></app-validator-message>
         </mat-error>
-        <form [formGroup]="authForm" (submit)="login()">
-            <mat-form-field class="auth-field">
-                <input required matInput placeholder="User name"
-                       formControlName="username">
-                <mat-error>
-                    <app-validator-message [field]="authForm.get('username')"></app-validator-message>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="auth-field">
-                <input type="password" required matInput placeholder="Password"
-                       formControlName="password">
-                <mat-error>
-                    <app-validator-message [field]="authForm.get('password')"></app-validator-message>
-                </mat-error>
-            </mat-form-field>
-            <div class="text-center">
-                <button mat-button color="primary" [disabled]="authForm.invalid">Submit</button>
-                <div class="auth-registration">
-                    or <a routerLink="/registration">Registration</a>
-                </div>
-            </div>
-        </form>
-    </mat-card>
+      </mat-form-field>
+      <mat-form-field class="auth-field">
+        <input type="password" required matInput placeholder="Password" formControlName="password">
+        <mat-error>
+          <app-validator-message [field]="authForm.get('password')"></app-validator-message>
+        </mat-error>
+      </mat-form-field>
+      <div class="text-center">
+        <button mat-button color="primary" [disabled]="authForm.invalid">Submit</button>
+        <div class="auth-registration">
+          or
+          <a routerLink="/registration">Registration</a>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+  <div class="my-3 text-center">
+    <a mat-button href="{{googleAuthorize}}">Sign in with Google</a>
+  </div>
 </div>
