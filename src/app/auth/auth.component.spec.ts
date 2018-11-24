@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
+import {APP_BASE_HREF} from '@angular/common';
 import { AuthComponent } from './auth.component';
+import { AppModule } from '../app.module';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -8,9 +13,17 @@ describe('AuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthComponent ]
+      imports: [
+        RouterTestingModule,
+        RouterModule,
+        AppModule,
+        SharedModule,
+        ReactiveFormsModule
+      ],
+      declarations: [AuthComponent],
+      providers: [{provide: APP_BASE_HREF, useValue : '/' }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

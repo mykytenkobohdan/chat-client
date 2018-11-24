@@ -1,8 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatMenuModule,
+        RouterModule,
+        RouterTestingModule,
+        MatToolbarModule
+      ],
       declarations: [
         AppComponent
       ],
@@ -22,6 +32,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to mean-chat!');
+    expect(compiled.querySelector('h1 a').textContent).toContain('Chat on MEAN Stack');
   }));
 });

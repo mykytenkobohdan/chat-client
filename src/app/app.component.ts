@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+    title = 'app';
     isLogin: boolean = !!localStorage.getItem('user');
     user: any = JSON.parse(localStorage.getItem('user'));
     private subscription: Subscription;

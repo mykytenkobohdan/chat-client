@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ValidatorMessagesComponent } from './validator-messages.component';
+import { ValidatorMessageComponent } from './validator-message.component';
 
-describe('ValidatorMessagesComponent', () => {
-  let component: ValidatorMessagesComponent;
-  let fixture: ComponentFixture<ValidatorMessagesComponent>;
+describe('ValidatorMessageComponent', () => {
+  let component: ValidatorMessageComponent;
+  let fixture: ComponentFixture<ValidatorMessageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ValidatorMessagesComponent ]
+      declarations: [ValidatorMessageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ValidatorMessagesComponent);
+    fixture = TestBed.createComponent(ValidatorMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
