@@ -27,7 +27,7 @@
             </div>
           </div>
         </mat-card-subtitle>
-        <mat-card-content class="d-flex align-items-center">
+        <mat-card-content class="d-flex align-items-center" style="overflow: hidden">
           <i *ngIf="message.isUpdated" class="material-icons">create</i>
           <span>{{message.message}}</span>
         </mat-card-content>
@@ -41,7 +41,6 @@
         <textarea class="p-0" required matInput maxlength="256" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="10"
           placeholder="Enter your message..." formControlName="messageControl"></textarea>
         <mat-hint align="end">{{messageForm.get('messageControl').value.length}} / 256</mat-hint>
-        <!-- if only input, without form, use: [formControl]="messageControl"-->
       </mat-form-field>
       <div *ngIf="isEdit; else isSend" class="row">
         <div class="col-6 text-right">

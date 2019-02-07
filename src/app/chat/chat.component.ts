@@ -85,7 +85,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.chatService.getMessages()
             .subscribe((data: Message[]) => {
                 this.messages = data;
-                console.log(this.messages);
             }, err => {
                 console.log(err);
             });
@@ -138,7 +137,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             this.currentScrollPosition = event.target.scrollTop;
         } else {
             if (this.currentScrollPosition > event.target.scrollTop) {
-                console.log('scroll top');
+
             }
             this.currentScrollPosition = event.target.scrollTop;
         }

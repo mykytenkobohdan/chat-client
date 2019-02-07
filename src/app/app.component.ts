@@ -21,8 +21,6 @@ export class AppComponent implements OnInit {
         this.appService
             .userSubject
             .subscribe(item => {
-                console.log('BS: ', item);
-
                 this.isLogin = !!localStorage.getItem('user');
                 this.user = JSON.parse(localStorage.getItem('user'));
             });
@@ -35,6 +33,5 @@ export class AppComponent implements OnInit {
     }
 
     onAuth(event) {
-        console.log('Data from auth: ', event);
     }
 }
